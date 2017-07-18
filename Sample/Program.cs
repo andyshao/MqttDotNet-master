@@ -21,7 +21,7 @@ namespace Sample
 			Console.WriteLine("Press any key to stop\n");
 
             String clientID = Guid.NewGuid().ToString().Substring(0,23);
-            String connString = "tcp://172.16.0.55:61613";
+            String connString = "tcp://192.168.3.56:61613";
 
 
             Program prog = new Program(connString, clientID);

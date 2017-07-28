@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Threading;
 using MqttLib;
 
 namespace Sample
@@ -16,15 +16,23 @@ namespace Sample
 			//	Console.WriteLine("Usage: " + Environment.GetCommandLineArgs()[0] + " ConnectionString ClientId");
 			//	return;
 			//}
-
 			Console.WriteLine("Starting MqttDotNet sample program.");
 			Console.WriteLine("Press any key to stop\n");
+			int clientNum;
+			for (clientNum = 1; clientNum <= 100; clientNum++)
+			{
+				new Thread(ClientThread).Start();
+			}
+		}
 
-            String clientID = Guid.NewGuid().ToString().Substring(0,23);
-            String connString = "tcp://192.168.3.56:61613";
+		static void ClientThread()
+		{
+			String clientID = Guid.NewGuid().ToString();//.Substring(0,23);
+			String connString = "tcp://127.0.0.1:11883";
+			//String username = "admin";
+			//String password = "password";
 
-
-            Program prog = new Program(connString, clientID);
+			Program prog = new Program(connString, clientID);
 			prog.Start();
 
 			Console.ReadKey();
